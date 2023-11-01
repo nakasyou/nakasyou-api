@@ -31,4 +31,14 @@ app.get('/profile', c => c.json({
   old: getOld()
 }))
 
+app.get('/mood', async c => {
+  const status = await fetch('https://raw.githubusercontent.com/nakasyou/nakasyou-status/main/status.json').then(res => res.json())
+  return c.json({
+    mood: status.mood.mood,
+    reason: status.mood.reason
+  })
+})
+
+app.get('/happy', c => c.json(true)) // いつでも幸せで！
+
 Deno.serve(app.fetch)
