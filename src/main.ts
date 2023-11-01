@@ -23,7 +23,7 @@ const getOld = () => {
   }
 }
 
-app.get('/profile', c.json({
+app.get('/profile', c => c.json({
   name: 'Shotaro Nakamura',
   gender: 'male',
   post: '中2',
