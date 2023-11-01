@@ -32,7 +32,7 @@ app.get('/profile', c => c.json({
 }))
 
 app.get('/mood', async c => {
-  const status = await fetch('https://raw.githubusercontent.com/nakasyou/nakasyou-status/main/status.json').then(res => res.json())
+  const status = await fetch('https://raw.githubusercontent.com/nakasyou/nakasyou-status/main/status.json' + `?l=${addUrl}`).then(res => res.json())
   return c.json({
     mood: status.mood.mood,
     reason: status.mood.reason
@@ -41,7 +41,14 @@ app.get('/mood', async c => {
 
 app.get('/is-happy', c => c.json(true)) // いつでも幸せで！
 
+let count = 0
+let addUrl = Math.random().toString(16)
 app.get('/sleep/:date', async c => {
+  count ++
+  if (count > 10) {
+    count = 0
+    addUrl = Math.random().toString(16)
+  }
   const data = await fetch('https://raw.githubusercontent.com/nakasyou/nakasyou-status/main/sleep.json').then(res => res.json())
   
   const date = c.req.param('date')
