@@ -41,4 +41,18 @@ app.get('/mood', async c => {
 
 app.get('/is-happy', c => c.json(true)) // いつでも幸せで！
 
+app.get('/sleep/:date', async c => {
+  const data = await fetch('https://raw.githubusercontent.com/nakasyou/nakasyou-status/main/sleep.json').then(res => res.json())
+  
+  const date = c.param('date')
+
+  if (!data[date]) {
+    c.status(404)
+    return c.json({
+      error: 'データが存在しません。'
+    })
+  }
+
+  return c.json(data[date])
+})
 Deno.serve(app.fetch)
