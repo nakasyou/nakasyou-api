@@ -44,7 +44,7 @@ app.get('/is-happy', c => c.json(true)) // いつでも幸せで！
 app.get('/sleep/:date', async c => {
   const data = await fetch('https://raw.githubusercontent.com/nakasyou/nakasyou-status/main/sleep.json').then(res => res.json())
   
-  const date = c.param('date')
+  const date = c.req.param('date')
 
   if (!data[date]) {
     c.status(404)
