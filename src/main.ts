@@ -39,6 +39,6 @@ app.get('/mood', async c => {
   })
 })
 
-app.get('/happy', c => c.json(true)) // いつでも幸せで！
+app.get('/is-happy', c => c.json(true)) // いつでも幸せで！
 
 Deno.serve(app.fetch)
