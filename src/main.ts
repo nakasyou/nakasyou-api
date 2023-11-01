@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 
 const app = new Hono()
 
-app.get('/', c.json({
+app.get('/', c => c.json({
   status: 'ok',
   repo: 'https://github.com/nakasyou/nakasyou-api'
 }))
