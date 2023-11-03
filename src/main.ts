@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { graphqlServer } from 'npm:@hono/graphql-server'
-import { buildSchema } from 'npm:graphql'
+import { graphql, buildSchema } from 'npm:graphql'
 
 const app = new Hono()
 
@@ -19,13 +19,14 @@ const rootResolver = (ctx) => {
   }
 }
 
-app.use(
-  '/graphql',
-  graphqlServer({
+app.post('/graphql', async c => {
+  const res = await graphql({
     schema,
+    source: c.req.json().query,
     rootResolver,
   })
-)
+  return c.json(res)
+})
 
 app.get('/', c => c.json({
   status: 'ok',
