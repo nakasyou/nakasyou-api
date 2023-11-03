@@ -19,14 +19,21 @@ const rootResolver = (ctx) => {
   }
 }
 
-app.post('/graphql', async c => {
+/*app.post('/graphql', async c => {
   const res = await graphql({
     schema,
     source: c.req.json().query,
     rootResolver,
   })
   return c.json(res)
-})
+})*/
+app.use(
+  '/graphql',
+  graphqlServer({
+    schema,
+    rootResolver,
+  })
+)
 
 app.get('/', c => c.json({
   status: 'ok',
