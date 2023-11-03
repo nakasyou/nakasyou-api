@@ -4,6 +4,10 @@ import { buildSchema } from 'npm:graphql'
 
 const app = new Hono()
 
+app.use('/*', async (c, next) => {
+  c.header('Access-Control-Allow-Origin', '*')
+  await next()
+})
 const schema = buildSchema(`
 type Query {
   hello: String
